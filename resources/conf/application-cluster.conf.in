@@ -1,0 +1,4 @@
+%prod-cluster1.play.tmp=/var/lib/@APP@/cluster1/tmp
+%prod-cluster2.play.tmp=/var/lib/@APP@/cluster2/tmp
+%prod-cluster1.application.log.path=/log4j-prod-cluster1.properties
+%prod-cluster2.application.log.path=/log4j-prod-cluster2.properties

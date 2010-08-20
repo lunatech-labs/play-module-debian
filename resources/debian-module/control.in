@@ -1,0 +1,11 @@
+Source: @APP@
+Section: unknown
+Priority: extra
+Maintainer: @NAME@ <@EMAIL@>
+Build-Depends: debhelper (>= 7), play-@PLAY_MAJOR_VERSION@
+Standards-Version: 3.8.3
+
+Package: @APP@
+Architecture: all
+Depends: ${misc:Depends}
+Description: Your play module description

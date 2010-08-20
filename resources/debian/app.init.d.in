@@ -1,0 +1,98 @@
+#! /bin/sh
+#
+# Startup script for @APP@.
+#
+# @NAME@ <@EMAIL@>
+# Copyright 2010, @NAME@
+#
+
+APP=@APP@
+USER=@USER@
+CLUSTER=@CLUSTER@
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+PLAY=/usr/bin/play-@PLAY_MAJOR_VERSION@
+PLAY_ID=
+PLAY_ARGS=
+
+if test -n "$CLUSTER"
+then
+	APP_FOLDER=$APP/$CLUSTER
+	APP_NAME=$APP-$CLUSTER
+	PLAY_ID=prod-$CLUSTER
+else
+	APP_FOLDER=$APP
+	APP_NAME=$APP
+fi
+
+APP_PATH=/usr/share/$APP_FOLDER
+export PLAY_PID_PATH=/var/run/$APP_FOLDER/$APP.pid
+export PLAY_LOG_PATH=/var/log/$APP_FOLDER
+DESC="$APP_NAME application"
+
+if test -f /etc/default/$APP_NAME
+then
+	. /etc/default/$APP_NAME
+fi
+
+test -d $APP_PATH || exit 0
+
+if test "$IS_PLAY_CONFIGURED" = 0
+then
+	echo "You must configure $APP_NAME in /etc/default/$APP_NAME before running it"
+	case "$1" in
+    	stop)
+    	exit 0
+    ;;
+    *)
+		exit 1
+	;;
+	esac
+fi
+
+# setup the id
+if test -n "$PLAY_ID"
+then
+	PLAY_ARGS="$PLAY_ARGS --%$PLAY_ID"
+fi
+
+set -e
+
+case "$1" in
+    start)
+        echo -n "Starting $DESC: "
+
+	if start-stop-daemon --start --pidfile $PLAY_PID_PATH --user $USER --chuid $USER:$USER --quiet --exec $PLAY -- start $APP_PATH $PLAY_ARGS > /dev/null
+	then
+		echo "done."
+	else
+		echo "failed (already running?)."
+		exit 1
+	fi
+    ;;
+
+    stop)
+        echo -n "Stopping $DESC: "
+
+	if start-stop-daemon --stop --oknodo --pidfile $PLAY_PID_PATH --user $USER --chuid $USER:$USER --quiet --retry 5
+	then
+		test -f $PLAY_PID_PATH && rm $PLAY_PID_PATH
+	    echo "done."
+	else
+		echo "failed (not running?)."
+	fi
+    ;;
+
+    restart|force-reload)
+        $0 stop
+        $0 start
+    ;;
+
+    *)
+        echo "Usage: $0 {start|stop|restart|force-reload}" >&2
+        exit 1
+    ;;
+esac
+
+exit 0
+

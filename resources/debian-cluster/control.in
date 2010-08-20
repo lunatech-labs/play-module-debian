@@ -1,0 +1,16 @@
+Source: @APP@
+Section: unknown
+Priority: extra
+Maintainer: @NAME@ <@EMAIL@>
+Build-Depends: debhelper (>= 7), ant
+Standards-Version: 3.8.4
+
+Package: @APP@-cluster1
+Architecture: all
+Depends: ${misc:Depends}, play-@PLAY_MAJOR_VERSION@
+Description: Insert your description here
+
+Package: @APP@-cluster2
+Architecture: all
+Depends: ${misc:Depends}, play-@PLAY_MAJOR_VERSION@
+Description: Insert your description here

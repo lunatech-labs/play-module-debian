@@ -1,0 +1,89 @@
+#!/usr/bin/make -f
+#-*- makefile -*-
+# Made with the aid of dh_make, by Craig Small
+# Sample debian/rules that uses debhelper. GNU copyright 1997 by Joey Hess.
+# Some lines taken from debmake, by Christoph Lameter.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+export DH_COMPAT=3
+
+NAME=@APP@
+CLUSTER1=cluster1
+CLUSTER2=cluster2
+
+DEB_PATH=debian/$(NAME)
+DEB_PATH1=$(DEB_PATH)-$(CLUSTER1)
+DEB_PATH2=$(DEB_PATH)-$(CLUSTER2)
+INSTALL_PATH=/usr/share/$(NAME)
+ETC_PATH=/etc/$(NAME)
+LOG_PATH=/var/log/$(NAME)
+LIB_PATH=/var/lib/$(NAME)
+RUN_PATH=/var/run/$(NAME)
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+	touch configure-stamp
+
+
+build: configure-stamp build-stamp
+build-stamp:
+	dh_testdir
+	touch build-stamp
+
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp configure-stamp
+	dh_clean
+
+
+install: 
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+	# first cluster
+	install -d $(DEB_PATH1)$(INSTALL_PATH)/$(CLUSTER1) $(DEB_PATH1)$(ETC_PATH)/$(CLUSTER1) $(DEB_PATH1)$(LOG_PATH)/$(CLUSTER1) \
+	 $(DEB_PATH1)$(LIB_PATH)/$(CLUSTER1) $(DEB_PATH1)$(RUN_PATH)/$(CLUSTER1)
+	rsync --exclude .svn -r app lib public $(DEB_PATH1)$(INSTALL_PATH)/$(CLUSTER1)/
+	cp conf/* $(DEB_PATH1)$(ETC_PATH)/$(CLUSTER1)
+	ln -s $(ETC_PATH)/$(CLUSTER1) $(DEB_PATH1)$(INSTALL_PATH)/$(CLUSTER1)/conf
+	# second cluster
+	install -d $(DEB_PATH2)$(INSTALL_PATH)/$(CLUSTER2) $(DEB_PATH2)$(ETC_PATH)/$(CLUSTER2) $(DEB_PATH2)$(LOG_PATH)/$(CLUSTER2) \
+	 $(DEB_PATH2)$(LIB_PATH)/$(CLUSTER2) $(DEB_PATH2)$(RUN_PATH)/$(CLUSTER2)
+	rsync --exclude .svn -r app lib public $(DEB_PATH2)$(INSTALL_PATH)/$(CLUSTER2)/
+	cp conf/* $(DEB_PATH2)$(ETC_PATH)/$(CLUSTER2)
+	ln -s $(ETC_PATH)/$(CLUSTER2) $(DEB_PATH2)$(INSTALL_PATH)/$(CLUSTER2)/conf
+
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testversion
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installexamples
+	dh_installmenu
+	dh_installinit
+	dh_installcron
+#	dh_installmanpages
+	dh_installchangelogs 
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_perl 
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+source diff:                                                                  
+	@echo >&2 'source and diff are obsolete - use dpkg-source -b'; false
+
+binary: binary-arch
+.PHONY: build clean binary-indep binary-arch binary

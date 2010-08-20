@@ -1,0 +1,77 @@
+#!/usr/bin/make -f
+#-*- makefile -*-
+# Made with the aid of dh_make, by Craig Small
+# Sample debian/rules that uses debhelper. GNU copyright 1997 by Joey Hess.
+# Some lines taken from debmake, by Christoph Lameter.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+export DH_COMPAT=3
+
+NAME=@APP@
+
+DEB_PATH=debian/$(NAME)
+INSTALL_PATH=/usr/share/$(NAME)
+ETC_PATH=/etc/$(NAME)
+LOG_PATH=/var/log/$(NAME)
+LIB_PATH=/var/lib/$(NAME)
+RUN_PATH=/var/run/$(NAME)
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+	touch configure-stamp
+
+
+build: configure-stamp build-stamp
+build-stamp:
+	dh_testdir
+	touch build-stamp
+
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp configure-stamp
+	dh_clean
+
+
+install: 
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+	install -d $(DEB_PATH)$(INSTALL_PATH) $(DEB_PATH)$(ETC_PATH) $(DEB_PATH)$(LOG_PATH) $(DEB_PATH)$(LIB_PATH) $(DEB_PATH)$(RUN_PATH)
+	rsync --exclude .svn --exclude .CVS -r app lib public $(DEB_PATH)$(INSTALL_PATH)
+	cp conf/* $(DEB_PATH)$(ETC_PATH)
+	ln -s $(ETC_PATH) $(DEB_PATH)$(INSTALL_PATH)/conf
+
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testversion
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installexamples
+	dh_installmenu
+	dh_installinit
+	dh_installcron
+#	dh_installmanpages
+	dh_installchangelogs 
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_perl 
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+source diff:                                                                  
+	@echo >&2 'source and diff are obsolete - use dpkg-source -b'; false
+
+binary: binary-arch
+.PHONY: build clean binary-indep binary-arch binary

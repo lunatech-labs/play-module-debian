@@ -1,0 +1,3 @@
+etc/@APP@/@CLUSTER@/routes
+etc/@APP@/@CLUSTER@/log4j-prod-@CLUSTER@.properties
+etc/@APP@/@CLUSTER@/application.conf

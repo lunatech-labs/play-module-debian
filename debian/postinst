@@ -1,0 +1,10 @@
+#!/bin/sh
+
+VERSION=1.0
+
+set -e
+
+case "$1" in
+configure)
+	update-alternatives --install /usr/share/play-modules/1.1/debian play-1.1-debian-module /usr/share/play-modules/1.1/debian-$VERSION 1
+esac

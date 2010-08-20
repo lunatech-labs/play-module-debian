@@ -1,0 +1,3 @@
+etc/@APP@/routes
+etc/@APP@/log4j-prod.properties
+etc/@APP@/application.conf
