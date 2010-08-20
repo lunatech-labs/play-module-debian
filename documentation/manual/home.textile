@@ -1,0 +1,56 @@
+h1.About
+
+The Debian Play! module allows you to generate Debian packages for your Play! Framework applications and modules. More information on the "Lunatech web site":http://www.lunatech-labs.com/open-source/debian-play-module
+
+h1. Usage
+
+Download and install the Debian Play! module inside the modules/debian folder of your Play! Framework installation and follow the following instructions:
+
+h1. Debianise an application
+
+In your application folder, run the following:
+
+bc. play deb:debianize --with=debian
+
+And answer the questions. Once done, it will generate a folder called debian which will contain all you need to make debian packages with your application. You may want to customise the files located in there and take a look at those it placed in conf/*.ex to see if you want to include this configuration in your application.
+
+Now just run this:
+
+bc. fakeroot ./debian/rules binary
+
+And you will get your application deb generated.
+
+h1. Debianise a clustered application
+
+This is useful if you want to have two versions of your application running all the time, and use a load-balancer or fallback proxy, if you want to upgrade your application with no downtime for example. This will generate two debs, with each a copy of the application and configuration.
+
+In your application folder, run the following:
+
+bc. play deb:debianize-cluster --with=debian
+
+And answer the questions. Once done, it will generate a folder called debian which will contain all you need to make debian packages with your application. You may want to customise the files located in there and take a look at those it placed in conf/*.ex to see if you want to include this configuration in your application.
+
+Now just run this:
+
+bc. fakeroot ./debian/rules binary
+
+And you will get your application debs generated.
+
+h1. Debianise a module
+
+In your module folder, run the following:
+
+bc. play deb:debianize-module --with=debian
+
+And answer the questions. Once done, it will generate a folder called debian which will contain all you need to make debian packages with your application. You may want to customise the files located in there.
+
+Now just run this:
+
+bc. fakeroot ./debian/rules binary
+
+And you will get your module deb generated.
+
+h1. Warning
+
+The Debian packages generated will need to be customised for your needs. By default everything is setup to depend on debianised Play! packages that you will need to build. Let us know if you have anything that needs fixing.
+
