@@ -1,6 +1,6 @@
 h1.About
 
-The Debian Play! module allows you to generate Debian packages for your Play! Framework applications and modules. More information on the "Lunatech web site":http://www.lunatech-labs.com/open-source/debian-play-module
+The Debian Play! module allows you to generate Debian:http://www.debian.org/ packages for your Play! Framework applications and modules. More information on the "Lunatech web site":http://www.lunatech-labs.com/open-source/debian-play-module
 
 h1. Usage
 
