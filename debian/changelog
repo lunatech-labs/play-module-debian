@@ -1,3 +1,9 @@
+play-1.1-debian-module-1.1 (1.1ubuntu1) lucid; urgency=low
+
+  * Made it into two packages for 1.0 and 1.1
+
+ -- Stephane Epardaud <stephane@epardaud.net>  Tue, 31 Aug 2010 17:02:52 +0200
+
 play-1.1-debian-module-1.0 (1.0) UNRELEASED; urgency=low
 
   * Initial release

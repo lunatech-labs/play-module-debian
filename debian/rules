@@ -8,14 +8,16 @@
 #export DH_VERBOSE=1
 export DH_COMPAT=3
 
-VERSION=1.0
+VERSION=1.1
 MODULE_NAME=debian
-PLAY_VERSION=1.1
-APP=play-1.1-debian-module-1.0
+APP_10=play-1.0-$(MODULE_NAME)-module-$(VERSION)
+APP_11=play-1.0-$(MODULE_NAME)-module-$(VERSION)
 MODULE=$(MODULE_NAME)-$(VERSION)
 
-DEB_PATH=debian/$(APP)
-INSTALL_PATH=/usr/share/play-modules/$(PLAY_VERSION)/$(MODULE)
+DEB_PATH_10=debian/$(APP_10)
+DEB_PATH_11=debian/$(APP_11)
+INSTALL_PATH_10=/usr/share/play-modules/1.0/$(MODULE)
+INSTALL_PATH_11=/usr/share/play-modules/1.1/$(MODULE)
 
 configure: configure-stamp
 configure-stamp:
@@ -27,7 +29,6 @@ build: configure-stamp build-stamp
 build-stamp:
 	dh_testdir
 	dh_clean
-	/bin/echo -e '\n\n' | play-$(PLAY_VERSION) build-module
 	touch build-stamp
 
 clean:
@@ -42,8 +43,14 @@ install:
 	dh_testroot
 	dh_clean -k
 	dh_installdirs
-	install -d $(DEB_PATH)$(INSTALL_PATH)
-	rsync -r --exclude .svn --exclude .CVS dist resources commands.py $(DEB_PATH)$(INSTALL_PATH)
+	/bin/echo -e '\n\n' | play-1.0 build-module
+	install -d $(DEB_PATH_10)$(INSTALL_PATH_10)
+	rsync -r --exclude .svn --exclude .CVS dist resources $(DEB_PATH_10)$(INSTALL_PATH_10)
+	cp commands-1.0.py $(DEB_PATH_10)$(INSTALL_PATH_10)/commands.py
+	/bin/echo -e '\n\n' | play-1.1 build-module
+	install -d $(DEB_PATH_11)$(INSTALL_PATH_11)
+	rsync -r --exclude .svn --exclude .CVS dist resources $(DEB_PATH_11)$(INSTALL_PATH_11)
+	cp commands-1.1.py $(DEB_PATH_11)$(INSTALL_PATH_11)/commands.py
 
 
 # Build architecture-dependent files here.
