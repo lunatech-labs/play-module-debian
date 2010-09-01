@@ -1,16 +1,20 @@
-Source: play-1.1-debian-module-1.1
+Source: play-1.1-debian-module
 Section: unknown
 Priority: extra
 Maintainer: Stephane Epardaud <stephane@epardaud.net>
 Build-Depends: debhelper (>= 7), play-1.1
 Standards-Version: 3.8.3
 
-Package: play-1.1-debian-module-1.1
+Package: play-1.1-debian-module
 Architecture: all
 Depends: ${misc:Depends}
+Replaces: play-1.1-debian-module-1.0, play-1.1-debian-module-1.1
+Conflicts: play-1.1-debian-module-1.0, play-1.1-debian-module-1.1
 Description: The Play! Framework debian module
 
-Package: play-1.0-debian-module-1.1
+Package: play-1.0-debian-module
 Architecture: all
 Depends: ${misc:Depends}
+Replaces: play-1.0-debian-module-1.0, play-1.0-debian-module-1.1
+Conflicts: play-1.0-debian-module-1.0, play-1.0-debian-module-1.1
 Description: The Play! Framework debian module

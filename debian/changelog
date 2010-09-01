@@ -1,3 +1,10 @@
+play-1.1-debian-module (1.2ubuntu1) lucid; urgency=low
+
+  * Dropped module version from name
+  * Fixed @CLUSTER@ bug for normal packages
+
+ -- Stephane Epardaud <stephane@epardaud.net>  Wed, 01 Sep 2010 11:18:08 +0200
+
 play-1.1-debian-module-1.1 (1.1ubuntu1) lucid; urgency=low
 
   * Made it into two packages for 1.0 and 1.1

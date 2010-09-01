@@ -84,7 +84,12 @@ if (play_command == "deb:debianize" or play_command == "deb:debianize-module" or
         copy(["conf", "log4j-prod.properties.in"], ["conf", "log4j-prod.properties.ex"], files)
         # now process
         subprocess.check_call(["perl", "-pi", "-e", 
-                               "s'@APP@'"+app_name+"'g; s'@NAME@'"+user_name+"'g; s'@EMAIL@'"+email+"'g; s'@PLAY_MAJOR_VERSION@'"+major_version+"'; s'@USER@'"+app_user+"'", 
+                               "s'@APP@'"+app_name+
+                               "'g; s'@NAME@'"+user_name+
+                               "'g; s'@EMAIL@'"+email+
+                               "'g; s'@PLAY_MAJOR_VERSION@'"+major_version+
+                               "'g; s'@CLUSTER@'"+
+                               "'g; s'@USER@'"+app_user+"'", 
                                ] + files)
         for m in getAllKeys("module."):
             mod_name = m[7:]
@@ -119,7 +124,11 @@ if (play_command == "deb:debianize" or play_command == "deb:debianize-module" or
         copy(["conf", "application-cluster.conf.in"], ["conf", "application.conf.ex"], files)
         # now process
         subprocess.check_call(["perl", "-pi", "-e", 
-                               "s'@APP@'"+app_name+"'g; s'@NAME@'"+user_name+"'g; s'@EMAIL@'"+email+"'g; s'@PLAY_MAJOR_VERSION@'"+major_version+"'; s'@USER@'"+app_user+"'", 
+                               "s'@APP@'"+app_name+
+                               "'g; s'@NAME@'"+user_name+
+                               "'g; s'@EMAIL@'"+email+
+                               "'g; s'@PLAY_MAJOR_VERSION@'"+major_version+
+                               "'g; s'@USER@'"+app_user+"'", 
                                ] + files + files1 + files2)
         subprocess.check_call(["perl", "-pi", "-e", 
                                "s'@CLUSTER@'cluster1'g", 
@@ -152,7 +161,12 @@ if (play_command == "deb:debianize" or play_command == "deb:debianize-module" or
         copy(["debian-module", "rules.in"], ["debian", "rules"], files)
         # now process
         subprocess.check_call(["perl", "-pi", "-e", 
-                               "s'@APP@'"+app_name+"'g; s'@NAME@'"+user_name+"'g; s'@EMAIL@'"+email+"'g; s'@PLAY_MAJOR_VERSION@'"+major_version+"'g; s'@MODULE@'"+module_name+"'g; s'@VERSION@'"+module_version+"'g", 
+                               "s'@APP@'"+app_name+
+                               "'g; s'@NAME@'"+user_name+
+                               "'g; s'@EMAIL@'"+email+
+                               "'g; s'@PLAY_MAJOR_VERSION@'"+major_version+
+                               "'g; s'@MODULE@'"+module_name+
+                               "'g; s'@VERSION@'"+module_version+"'g", 
                                ] + files)
         print "~ Your module has been debianized, now do the following:"
         print "~  - Do not forget to check the files in debian/*"

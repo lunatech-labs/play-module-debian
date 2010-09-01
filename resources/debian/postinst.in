@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NAME=@APP@
+APP=@APP@
 PLAY_USER=@USER@
 CLUSTER=@CLUSTER@
 
@@ -28,7 +28,7 @@ configure)
 
 	chown $PLAY_USER. /var/log/$APP_FOLDER /var/lib/$APP_FOLDER /var/run/$APP_FOLDER
 
-	update-rc.d $NAME defaults 91 09
+	update-rc.d $APP_NAME defaults 91 09
 
 	echo "Not starting $APP_NAME, configure /etc/$APP_FOLDER/application.conf and then run /etc/init.d/$APP_NAME start"
 esac

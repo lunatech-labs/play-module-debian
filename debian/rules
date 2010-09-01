@@ -10,9 +10,9 @@ export DH_COMPAT=3
 
 VERSION=1.1
 MODULE_NAME=debian
-APP_10=play-1.0-$(MODULE_NAME)-module-$(VERSION)
-APP_11=play-1.0-$(MODULE_NAME)-module-$(VERSION)
-MODULE=$(MODULE_NAME)-$(VERSION)
+APP_10=play-1.0-$(MODULE_NAME)-module
+APP_11=play-1.1-$(MODULE_NAME)-module
+MODULE=$(MODULE_NAME)
 
 DEB_PATH_10=debian/$(APP_10)
 DEB_PATH_11=debian/$(APP_11)
