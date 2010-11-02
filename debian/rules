@@ -6,7 +6,6 @@
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
-export DH_COMPAT=3
 
 VERSION=1.1
 MODULE_NAME=debian
@@ -19,30 +18,10 @@ DEB_PATH_11=debian/$(APP_11)
 INSTALL_PATH_10=/usr/share/play-modules/1.0/$(MODULE)
 INSTALL_PATH_11=/usr/share/play-modules/1.1/$(MODULE)
 
-configure: configure-stamp
-configure-stamp:
-	dh_testdir
-	touch configure-stamp
+%:
+	dh  $@
 
-
-build: configure-stamp build-stamp
-build-stamp:
-	dh_testdir
-	dh_clean
-	touch build-stamp
-
-clean:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp configure-stamp
-	dh_clean
-
-
-install: 
-	dh_testdir
-	dh_testroot
-	dh_clean -k
-	dh_installdirs
+override_dh_auto_install: 
 	/bin/echo -e '\n\n' | play-1.0 build-module
 	install -d $(DEB_PATH_10)$(INSTALL_PATH_10)
 	rsync -r --exclude .svn --exclude .CVS dist resources $(DEB_PATH_10)$(INSTALL_PATH_10)
@@ -51,33 +30,3 @@ install:
 	install -d $(DEB_PATH_11)$(INSTALL_PATH_11)
 	rsync -r --exclude .svn --exclude .CVS dist resources $(DEB_PATH_11)$(INSTALL_PATH_11)
 	cp commands-1.1.py $(DEB_PATH_11)$(INSTALL_PATH_11)/commands.py
-
-
-# Build architecture-dependent files here.
-binary-arch: build install
-	dh_testversion
-	dh_testdir
-	dh_testroot
-	dh_installdocs
-	dh_installexamples
-	dh_installmenu
-	dh_installinit
-	dh_installcron
-#	dh_installmanpages
-	dh_installchangelogs 
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_perl 
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-source diff:                                                                  
-	@echo >&2 'source and diff are obsolete - use dpkg-source -b'; false
-
-binary: binary-arch
-.PHONY: build clean binary-indep binary-arch binary

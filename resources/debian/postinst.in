@@ -30,5 +30,12 @@ configure)
 
 	update-rc.d $APP_NAME defaults 91 09
 
-	echo "Not starting $APP_NAME, configure /etc/$APP_FOLDER/application.conf and then run /etc/init.d/$APP_NAME start"
+	. /etc/default/$APP_NAME
+	
+	if test "$VCS_PLAY_CONFIGURED" = 1
+	then
+		/etc/init.d/$APP_NAME restart
+	else
+		echo "Not starting $APP_NAME, configure /etc/$APP_FOLDER/application.conf and /etc/default/$APP_NAME, then run /etc/init.d/$APP_NAME start"
+	fi
 esac
