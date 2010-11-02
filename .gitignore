@@ -6,3 +6,9 @@ commands.pyc
 .project
 .classpath
 .pydevproject
+lib/play-play-debian.jar
+debian/play-1.?-debian-module
+debian/files
+commands.py
+debian/play-1.?-debian-module.substvars
+debian/play-1.?-debian-module.debhelper.log
