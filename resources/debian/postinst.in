@@ -32,7 +32,7 @@ configure)
 
 	. /etc/default/$APP_NAME
 	
-	if test "$VCS_PLAY_CONFIGURED" = 1
+	if test "$IS_PLAY_CONFIGURED" = 1
 	then
 		/etc/init.d/$APP_NAME restart
 	else
