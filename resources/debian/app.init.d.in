@@ -93,7 +93,7 @@ case "$1" in
 	;;
 
     stop)
-		log_daemon_msg "Stopping $DESC" vcs-play
+		log_daemon_msg "Stopping $DESC" $APP
 		if start-stop-daemon --stop --oknodo --pidfile $PLAY_PID_PATH --user $USER --chuid $USER:$USER --quiet --retry 5
 		then
 			test -f $PLAY_PID_PATH && rm $PLAY_PID_PATH
