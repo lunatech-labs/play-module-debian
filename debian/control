@@ -7,14 +7,14 @@ Standards-Version: 3.8.3
 
 Package: play-1.1-debian-module
 Architecture: all
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, debconf, dh-make, debhelper (>= 7), devscripts
 Replaces: play-1.1-debian-module-1.0, play-1.1-debian-module-1.1
 Conflicts: play-1.1-debian-module-1.0, play-1.1-debian-module-1.1
 Description: The Play! Framework debian module
 
 Package: play-1.0-debian-module
 Architecture: all
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, debconf, dh-make, debhelper (>= 7), devscripts
 Replaces: play-1.0-debian-module-1.0, play-1.0-debian-module-1.1
 Conflicts: play-1.0-debian-module-1.0, play-1.0-debian-module-1.1
 Description: The Play! Framework debian module
