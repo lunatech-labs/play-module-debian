@@ -2,7 +2,7 @@
 
 <project name="debian-play-module" default="build" basedir=".">
 
-	<property name="version" value="1.2"/>
+	<property name="version" value="1.4"/>
 	<property name="dist.dir-1.0" value="play-1.0-debian-module-${version}"/>
 	<property name="dist.dir-1.1" value="play-1.1-debian-module-${version}"/>
 	<property name="dist.dir-src" value="debian-play-module-${version}"/>
@@ -50,7 +50,10 @@
 		<mkdir dir="dist/${dist.dir-src}"/>
 		<copy todir="dist/${dist.dir-src}/" >
 			<fileset dir="." includes="resources/**"/>
-			<fileset dir="." includes="debian/**"/>
+			<fileset dir=".">
+				<include name="debian/**"/>
+				<exclude name="debian/play-1.?-debian-module*/**"/>
+			</fileset>
 			<fileset file="commands-1.0.py"/>
 			<fileset file="commands-1.1.py"/>
 			<fileset file="COPYING"/>
