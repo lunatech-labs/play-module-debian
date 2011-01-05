@@ -7,7 +7,6 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-VERSION=1.1
 MODULE_NAME=debian
 APP_10=play-1.0-$(MODULE_NAME)-module
 APP_11=play-1.1-$(MODULE_NAME)-module
