@@ -23,9 +23,9 @@ INSTALL_PATH_11=/usr/share/play-modules/1.1/$(MODULE)
 override_dh_auto_install: 
 	/bin/echo -e '\n\n' | play-1.0 build-module
 	install -d $(DEB_PATH_10)$(INSTALL_PATH_10)
-	rsync -r --exclude .svn --exclude .CVS dist resources $(DEB_PATH_10)$(INSTALL_PATH_10)
+	rsync -r --exclude .svn --exclude .CVS resources $(DEB_PATH_10)$(INSTALL_PATH_10)
 	cp commands-1.0.py $(DEB_PATH_10)$(INSTALL_PATH_10)/commands.py
 	/bin/echo -e '\n\n' | play-1.1 build-module
 	install -d $(DEB_PATH_11)$(INSTALL_PATH_11)
-	rsync -r --exclude .svn --exclude .CVS dist resources $(DEB_PATH_11)$(INSTALL_PATH_11)
+	rsync -r --exclude .svn --exclude .CVS resources $(DEB_PATH_11)$(INSTALL_PATH_11)
 	cp commands-1.1.py $(DEB_PATH_11)$(INSTALL_PATH_11)/commands.py
