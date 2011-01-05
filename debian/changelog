@@ -1,6 +1,7 @@
 play-1.1-debian-module (1.4) maverick; urgency=low
 
   * Some fixes to the templates
+  * Depend on debian build tools
 
  -- Stephane Epardaud <stephane@epardaud.fr>  Thu, 16 Dec 2010 15:50:01 +0100
 
